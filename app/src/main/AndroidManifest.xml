@@ -12,7 +12,6 @@
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"/>
-
         <activity android:name=".ui.splash.SplashActivity"
             android:theme="@style/Theme.FoodDeliveryProject.NoActionBar">
             <intent-filter>

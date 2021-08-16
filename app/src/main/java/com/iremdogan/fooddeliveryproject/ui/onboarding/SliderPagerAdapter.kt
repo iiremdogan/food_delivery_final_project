@@ -6,15 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatButton
 import androidx.viewpager.widget.PagerAdapter
 import com.iremdogan.fooddeliveryproject.R
 import com.iremdogan.fooddeliveryproject.utils.setIndicatorBackground
 
 class SliderPagerAdapter(
     private val context: Context,
-    private val items : List<Pair<String, Int>>,
-    private val clickListener : IViewPagerAdapterClickListener) : PagerAdapter() {
+    private val items: List<Pair<String, Int>>
+) : PagerAdapter() {
 
     private lateinit var view: View
     private var lastSelectedPosition = 0
@@ -23,7 +22,8 @@ class SliderPagerAdapter(
     override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val layoutInflater =
+            context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         view = layoutInflater.inflate(R.layout.layout_onboarding_slider, container, false)
         container.addView(view)
         val item = items[position]
@@ -31,14 +31,6 @@ class SliderPagerAdapter(
         imageViewIcon.setBackgroundResource(item.second)
         val textViewOnboarding = view.findViewById<TextView>(R.id.onboarding_text_view)
         textViewOnboarding.text = item.first
-        val createAccountButton = view.findViewById<AppCompatButton>(R.id.create_account_button)
-        createAccountButton.setOnClickListener {
-            clickListener.onCreateAccountClicked()
-        }
-        val loginTextView = view.findViewById<TextView>(R.id.login_text_view)
-        loginTextView.setOnClickListener {
-            clickListener.onLoginClicked()
-        }
         val imageView = getIndicator(lastSelectedPosition)
         imageView?.setIndicatorBackground(isSelected = true)
         return view
