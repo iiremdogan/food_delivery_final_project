@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Food Delivery Project</string>
+    <string name="skip">Skip</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="login">login</string>
+    <string name="onboarding_text_first">Order from your favourite \n stores or vendors</string>
+    <string name="onboarding_text_second">Choose from a wide range of \n delicious meals</string>
+    <string name="onboarding_text_third">Enjoy instant delivery \n and payment</string>
 </resources>

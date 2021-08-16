@@ -3,9 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/irem.dogan/AndroidStudioProjects/FoodDeliveryProject/app/src/main/res/drawable/ic_onboarding_first.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/irem.dogan/AndroidStudioProjects/FoodDeliveryProject/app/src/main/res/drawable/ic_onboarding_indicator_selected.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/irem.dogan/AndroidStudioProjects/FoodDeliveryProject/app/src/main/res/drawable/ic_onbpoarding_indicator_unselected.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/irem.dogan/AndroidStudioProjects/FoodDeliveryProject/app/src/main/res/drawable/onboarding_button.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/irem.dogan/AndroidStudioProjects/FoodDeliveryProject/app/src/main/res/layout/activity_main.xml" value="0.228125" />
+        <entry key="..\:/Users/irem.dogan/AndroidStudioProjects/FoodDeliveryProject/app/src/main/res/layout/activity_onboarding.xml" value="0.2421875" />
         <entry key="..\:/Users/irem.dogan/AndroidStudioProjects/FoodDeliveryProject/app/src/main/res/layout/activity_splash.xml" value="0.2421875" />
         <entry key="..\:/Users/irem.dogan/AndroidStudioProjects/FoodDeliveryProject/app/src/main/res/layout/fragment_splash.xml" value="0.2421875" />
+        <entry key="..\:/Users/irem.dogan/AndroidStudioProjects/FoodDeliveryProject/app/src/main/res/layout/layout_onboarding_slider.xml" value="0.2421875" />
       </map>
     </option>
   </component>
