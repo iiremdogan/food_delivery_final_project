@@ -9,9 +9,11 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="app_background_color">#F8FBFF</color>
+    <color name="app_background_color_shade">#DFE2E5</color>
+    <color name="light_gray">#AAACAE</color>
     <color name="light_orange">#F9881F</color>
     <color name="medium_orange">#FA5A1E</color>
-    <color name="medium_black">#1C1C1C</color>
     <color name="light_red">#FE554A</color>
+    <color name="medium_black">#1C1C1C</color>
 
 </resources>
