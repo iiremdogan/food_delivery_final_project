@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/restaurant_item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="16dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/restaurant_item_image_view"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginHorizontal="12dp"
+            android:src="@drawable/ic_heart_filled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/restaurant_name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Restaurant name"
+            android:textColor="@color/medium_black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/restaurant_item_image_view"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/restaurant_delivery_time_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="delivery time"
+            android:textColor="@color/light_gray"
+            app:layout_constraintStart_toStartOf="@id/restaurant_name_text_view"
+            app:layout_constraintTop_toBottomOf="@id/restaurant_name_text_view"
+            app:drawableStartCompat="@drawable/ic_clock"
+            android:drawablePadding="4dp"/>
+
+        <TextView
+            android:id="@+id/restaurant_min_fee_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:text="min fee"
+            android:textColor="@color/light_gray"
+            android:drawablePadding="4dp"
+            app:layout_constraintStart_toEndOf="@id/restaurant_delivery_time_text_view"
+            app:layout_constraintTop_toBottomOf="@id/restaurant_name_text_view"
+            app:drawableStartCompat="@drawable/ic_motorbike" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

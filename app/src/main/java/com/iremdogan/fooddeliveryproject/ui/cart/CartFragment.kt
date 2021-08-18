@@ -23,7 +23,12 @@ class CartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initializeViews()
 
+    }
+
+    private fun initializeViews() {
+        TODO("Not yet implemented")
     }
 
 }

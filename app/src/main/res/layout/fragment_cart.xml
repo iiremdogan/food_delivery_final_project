@@ -8,8 +8,8 @@
         android:id="@+id/cart_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="44dp"
         android:text="@string/your_cart"
         android:textColor="@color/medium_black"
         android:textSize="24sp"
@@ -25,7 +25,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/total_cost_layout"
         android:layout_marginTop="40dp"
-        android:layout_marginHorizontal="44dp"
+        android:layout_marginHorizontal="24dp"
         android:layout_marginBottom="40dp">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -34,7 +34,6 @@
             android:layout_height="match_parent"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     <LinearLayout
         android:id="@+id/total_cost_layout"

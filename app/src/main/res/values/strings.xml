@@ -25,4 +25,32 @@
     <string name="your_cart">Your cart</string>
     <string name="process_to_payment">Process to payment</string>
     <string name="total">"Total  "</string>
+    <string name="popular_restaurants">Popular restaurants</string>
+    <string name="view_all">View all</string>
+
+    <string-array name="RestaurantPaymentMethods">
+        <item>Online Credit/Bank Card</item>
+        <item>Credit Card</item>
+        <item>Cash</item>
+        <item>Ticket Restaurant</item>
+        <item>Sodexo Restaurant Pass</item>
+        <item>Multinet</item>
+        <item>SetCard</item>
+    </string-array>
+
+    <string-array name="Cuisines">
+        <item>Seafood</item>
+        <item>Burger</item>
+        <item>Doner</item>
+        <item>Worldwide</item>
+        <item>Homemade</item>
+        <item>Breakfast</item>
+        <item>Kebab</item>
+        <item>Meatball</item>
+        <item>Pasta - Salad</item>
+        <item>Bakery</item>
+        <item>Pizza</item>
+        <item>Dessert</item>
+        <item>Eastern Kitchen</item>
+    </string-array>
 </resources>

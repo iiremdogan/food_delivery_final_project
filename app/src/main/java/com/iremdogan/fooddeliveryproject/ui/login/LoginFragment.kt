@@ -1,5 +1,6 @@
 package com.iremdogan.fooddeliveryproject.ui.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.iremdogan.fooddeliveryproject.R
 import com.iremdogan.fooddeliveryproject.databinding.FragmentLoginBinding
+import com.iremdogan.fooddeliveryproject.ui.MainActivity
 
 class LoginFragment : Fragment() {
 
@@ -33,6 +35,9 @@ class LoginFragment : Fragment() {
         }
         _binding.loginButton.setOnClickListener {
             //TODO : login and navigate to home screen
+            val i = Intent(context, MainActivity::class.java)
+            startActivity(i)
+            requireActivity().finish()
         }
         _binding.createAccountTextView.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)

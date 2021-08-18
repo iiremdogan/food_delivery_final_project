@@ -5,21 +5,21 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.iremdogan.fooddeliveryproject.R
-import com.iremdogan.fooddeliveryproject.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var _binding: ActivityMainBinding
+    private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(_binding.root)
+        setContentView(R.layout.activity_main)
 
+        bottomNavigationView = findViewById(R.id.bottom_navigation)
         navController = Navigation.findNavController(this, R.id.fragment_host)
-        NavigationUI.setupWithNavController(_binding.bottomNavigationView, navController)
+        NavigationUI.setupWithNavController(bottomNavigationView, navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {
