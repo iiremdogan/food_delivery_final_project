@@ -11,8 +11,8 @@ import com.bumptech.glide.Glide
 import com.iremdogan.fooddeliveryproject.R
 
 class CartRecyclerViewAdapter : RecyclerView.Adapter<CartRecyclerViewAdapter.ViewHolder>() {
-    private lateinit var itemList: List<CartItem>
-    private var listener: ICartItemOnClick? = null
+    private lateinit var itemList: MutableList<CartItem>
+    private var listener: ICartOnClick ?= null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -29,14 +29,14 @@ class CartRecyclerViewAdapter : RecyclerView.Adapter<CartRecyclerViewAdapter.Vie
 
     override fun getItemCount(): Int = itemList.size
 
-    fun setData(itemList: List<CartItem>?) {
+    fun setData(itemList: MutableList<CartItem>?) {
         itemList?.let {
             this.itemList = itemList
             notifyDataSetChanged()
         }
     }
 
-    fun addListener(listener: ICartItemOnClick?) {
+    fun addListener(listener: ICartOnClick){
         this.listener = listener
     }
 
@@ -49,24 +49,35 @@ class CartRecyclerViewAdapter : RecyclerView.Adapter<CartRecyclerViewAdapter.Vie
         private val increaseButton: AppCompatButton = view.findViewById(R.id.increase_count_button)
         private val decreaseButton: AppCompatButton = view.findViewById(R.id.decrease_count_button)
 
-        fun bind(itemModel: CartItem, listener: ICartItemOnClick?) {
+
+        fun bind(itemModel: CartItem, listener: ICartOnClick?) {
             cartItemRestaurantName.text = itemModel.restaurantName
             cartItemMealName.text = itemModel.mealName
             cartItemMealPrice.text = itemModel.mealPrice
-
-            //TODO : BURALARDAN DEVAMKE
+            cartItemMealCount.text = itemModel.count.toString()
 
             Glide.with(cartItemImageView.context)
                 .load(R.drawable.ic_heart_filled).into(cartItemImageView)
 
             increaseButton.setOnClickListener {
-                listener?.onIncreaseButtonClick(cartItem = itemModel)
+                itemModel.count++
+                cartItemMealCount.text = itemModel.count.toString()
+                listener?.onClickIncreaseButton(itemModel)
             }
 
             decreaseButton.setOnClickListener {
-                listener?.onDecreaseButtonClick(cartItem = itemModel)
+                if((itemModel.count - 1) != 0 ){
+                    itemModel.count--
+                    cartItemMealCount.text = itemModel.count.toString()
+                    listener?.onClickDecreaseButton(itemModel)
+                }
             }
 
         }
+    }
+
+    fun removeAt(position: Int) {
+        itemList.removeAt(position)
+        notifyItemRemoved(position)
     }
 }

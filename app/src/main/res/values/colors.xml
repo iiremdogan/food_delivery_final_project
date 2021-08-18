@@ -15,5 +15,6 @@
     <color name="medium_orange">#FA5A1E</color>
     <color name="light_red">#FE554A</color>
     <color name="medium_black">#1C1C1C</color>
+    <color name="heavy_red">#f44336</color>
 
 </resources>

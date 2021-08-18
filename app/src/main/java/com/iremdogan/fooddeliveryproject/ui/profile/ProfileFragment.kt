@@ -5,11 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.iremdogan.fooddeliveryproject.databinding.FragmentProfileBinding
+import com.iremdogan.fooddeliveryproject.ui.cart.CartItem
+import com.iremdogan.fooddeliveryproject.ui.cart.CartRecyclerViewAdapter
+import com.iremdogan.fooddeliveryproject.ui.cart.ICartOnClick
+import com.iremdogan.fooddeliveryproject.utils.SwipeToDeleteCallback
 
 class ProfileFragment : Fragment() {
 
     private lateinit var _binding : FragmentProfileBinding
+    private var orderAdapter = LastOrderRecyclerViewAdapter()
+    private var orderList: MutableList<OrderModel> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,8 +31,28 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding.profileOrdersRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
+        initializeViews()
+        initializeListeners()
 
+    }
+
+    private fun initializeViews() {
+        orderList.add(OrderModel("", "Restaurant Name","Meal Name", "48"))
+        orderList.add(OrderModel("", "Restaurant Name","Meal Name", "8"))
+        orderList.add(OrderModel("", "Restaurant Name","Meal Name", "1"))
+        orderList.add(OrderModel("", "Restaurant Name","Meal Name", "122"))
+
+        _binding.profileOrdersRecyclerView.adapter = orderAdapter
+        orderAdapter.setData(orderList)
+    }
+
+    private fun initializeListeners() {
+        _binding.settingsImageView.setOnClickListener {
+            // TODO: navigate to settings
+        }
     }
 
 }
