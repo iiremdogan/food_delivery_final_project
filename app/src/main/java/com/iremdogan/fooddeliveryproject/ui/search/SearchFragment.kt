@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.iremdogan.fooddeliveryproject.R
 import com.iremdogan.fooddeliveryproject.databinding.FragmentSearchBinding
+import com.iremdogan.fooddeliveryproject.ui.home.restaurantmenu.IRestaurantOnClick
 import com.iremdogan.fooddeliveryproject.ui.home.restaurantmenu.RestaurantMenuModel
 import com.iremdogan.fooddeliveryproject.ui.home.restaurantmenu.RestaurantRecyclerViewAdapter
 
@@ -68,6 +71,13 @@ class SearchFragment : Fragment() {
                 val filterList = searchTextOnRestaurantList(newText)
                 setRestaurants(filterList)
                 return true
+            }
+
+        })
+
+        restaurantMenuAdapter.addListener(object: IRestaurantOnClick{
+            override fun onClick(restaurant: RestaurantMenuModel) {
+                findNavController().navigate(R.id.action_searchFragment_to_restaurantDetailFragment)
             }
 
         })

@@ -34,7 +34,7 @@ class LoginFragment : Fragment() {
             //TODO : login with google
         }
         _binding.loginButton.setOnClickListener {
-            //TODO : login and navigate to home screen
+            //TODO : login
             val i = Intent(context, MainActivity::class.java)
             startActivity(i)
             requireActivity().finish()

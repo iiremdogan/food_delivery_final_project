@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.iremdogan.fooddeliveryproject.R
 import com.iremdogan.fooddeliveryproject.databinding.FragmentHomeBinding
 import com.iremdogan.fooddeliveryproject.ui.home.menu.CuisineMenuItemModel
 import com.iremdogan.fooddeliveryproject.ui.home.menu.ICuisineMenuItemOnClick
@@ -83,12 +85,12 @@ class HomeFragment : Fragment() {
 
         restaurantMenuAdapter.addListener(object : IRestaurantOnClick {
             override fun onClick(restaurant: RestaurantMenuModel) {
-                //TODO: navigate to restaurant detail
+                findNavController().navigate(R.id.action_homeFragment_to_restaurantDetailFragment)
             }
         })
 
         _binding.viewAllRestaurantsTextView.setOnClickListener {
-            //TODO: navigate to search fragment
+            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
         }
 
     }

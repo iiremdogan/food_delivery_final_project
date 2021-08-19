@@ -39,7 +39,8 @@ class RegisterFragment : Fragment() {
     }
 
     private fun createAccount() {
-        //TODO : call viewmodel and navigate to login page
+        //TODO : register user
+        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
     }
 
 

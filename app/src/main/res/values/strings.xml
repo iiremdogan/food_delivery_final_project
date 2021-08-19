@@ -27,8 +27,15 @@
     <string name="total">"Total  "</string>
     <string name="popular_restaurants">Popular restaurants</string>
     <string name="view_all">View all</string>
-    <string name="address">Address</string>
+    <string name="settings">Settings</string>
+    <string name="user_name">User name</string>
     <string name="phone">Phone</string>
+    <string name="address">Address</string>
+    <string name="update_profile">Update profile</string>
+    <string name="restaurant_information">Restaurant\'s Information</string>
+    <string name="min_delivery_time">Min Delivery Time</string>
+    <string name="min_delivery_fee">Min Delivery Fee</string>
+    <string name="add_to_cart">Add to cart</string>
 
     <string-array name="RestaurantPaymentMethods">
         <item>Online Credit/Bank Card</item>

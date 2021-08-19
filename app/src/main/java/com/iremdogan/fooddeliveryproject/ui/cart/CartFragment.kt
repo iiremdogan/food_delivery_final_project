@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.iremdogan.fooddeliveryproject.R
 import com.iremdogan.fooddeliveryproject.databinding.FragmentCartBinding
 import com.iremdogan.fooddeliveryproject.utils.SwipeToDeleteCallback
 
@@ -50,7 +52,8 @@ class CartFragment : Fragment() {
 
     private fun initializeListeners() {
         _binding.cartPaymentButton.setOnClickListener {
-            //TODO : add order to user and navigate to home screen
+            //TODO : add order to user
+            findNavController().navigate(R.id.action_cartFragment_to_homeFragment)
         }
 
         cartAdapter.addListener(object : ICartOnClick{
