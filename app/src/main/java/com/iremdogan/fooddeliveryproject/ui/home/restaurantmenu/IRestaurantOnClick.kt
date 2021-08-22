@@ -1,6 +1,7 @@
 package com.iremdogan.fooddeliveryproject.ui.home.restaurantmenu
 
+import com.iremdogan.fooddeliveryproject.model.entity.restaurant.RestaurantData
+
 interface IRestaurantOnClick {
-    //TODO: model will be changed!!
-    fun onClick(restaurant: RestaurantMenuModel)
+    fun onClick(restaurant: RestaurantData)
 }

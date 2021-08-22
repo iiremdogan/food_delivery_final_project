@@ -1,7 +1,7 @@
 package com.iremdogan.fooddeliveryproject.ui.restaurantdetail.menu
 
-import com.iremdogan.fooddeliveryproject.ui.restaurantdetail.MealModel
+import com.iremdogan.fooddeliveryproject.model.entity.meal.MealData
 
 interface IMealOnClick {
-    fun onClick(meal: MealModel)
+    fun onClick(meal: MealData)
 }

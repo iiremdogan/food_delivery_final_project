@@ -9,9 +9,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.iremdogan.fooddeliveryproject.R
+import com.iremdogan.fooddeliveryproject.model.entity.restaurant.RestaurantData
 
 class RestaurantRecyclerViewAdapter: RecyclerView.Adapter<RestaurantRecyclerViewAdapter.ViewHolder>() {
-    private lateinit var restaurantList: List<RestaurantMenuModel>
+    private lateinit var restaurantList: List<RestaurantData>
     private var listener: IRestaurantOnClick? = null
 
     override fun onCreateViewHolder(
@@ -29,7 +30,7 @@ class RestaurantRecyclerViewAdapter: RecyclerView.Adapter<RestaurantRecyclerView
 
     override fun getItemCount(): Int = restaurantList.size
 
-    fun setData(restaurantList: List<RestaurantMenuModel>?) {
+    fun setData(restaurantList: List<RestaurantData>?) {
         restaurantList?.let {
             this.restaurantList = restaurantList
             notifyDataSetChanged()
@@ -47,10 +48,10 @@ class RestaurantRecyclerViewAdapter: RecyclerView.Adapter<RestaurantRecyclerView
         private val restaurantMinFee: TextView = view.findViewById(R.id.restaurant_min_fee_text_view)
         private val restaurantDeliveryTime: TextView = view.findViewById(R.id.restaurant_delivery_time_text_view)
 
-        fun bind(restaurantModel: RestaurantMenuModel, listener: IRestaurantOnClick?) {
+        fun bind(restaurantModel: RestaurantData, listener: IRestaurantOnClick?) {
             restaurantName.text = restaurantModel.name
-            restaurantMinFee.text = restaurantModel.minFee
-            restaurantDeliveryTime.text = restaurantModel.minDelivery
+            restaurantMinFee.text = restaurantModel.minDeliveryFee
+            restaurantDeliveryTime.text = restaurantModel.minDeliveryTime
 
             Glide.with(restaurantItemImageView.context)
                 .load(R.drawable.ic_heart_filled).into(restaurantItemImageView)

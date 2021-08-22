@@ -20,7 +20,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:text="Restaurant details info something..."
         android:layout_marginVertical="6dp"/>
 
     <TextView
@@ -38,7 +37,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:text="Min delivery time"
         android:layout_marginVertical="6dp"/>
 
     <TextView
@@ -52,9 +50,8 @@
         android:layout_marginVertical="6dp"/>
 
     <TextView
-        android:id="@+id/restaurant_min_fee_time_text_view"
+        android:id="@+id/restaurant_min_fee_text_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Min fee"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

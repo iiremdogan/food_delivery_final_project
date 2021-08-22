@@ -6,19 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.iremdogan.fooddeliveryproject.R
 import com.iremdogan.fooddeliveryproject.databinding.FragmentSearchBinding
+import com.iremdogan.fooddeliveryproject.model.entity.restaurant.RestaurantData
 import com.iremdogan.fooddeliveryproject.ui.home.restaurantmenu.IRestaurantOnClick
-import com.iremdogan.fooddeliveryproject.ui.home.restaurantmenu.RestaurantMenuModel
 import com.iremdogan.fooddeliveryproject.ui.home.restaurantmenu.RestaurantRecyclerViewAdapter
+import com.iremdogan.fooddeliveryproject.utils.Resource
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SearchFragment : Fragment() {
 
     private lateinit var _binding : FragmentSearchBinding
+    private val viewModel: SearchViewModel by viewModels()
+
     private var restaurantMenuAdapter = RestaurantRecyclerViewAdapter()
-    private var restaurantList: MutableList<RestaurantMenuModel> = mutableListOf()
+    private var restaurantList: MutableList<RestaurantData> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,19 +45,20 @@ class SearchFragment : Fragment() {
     }
 
     private fun initializeViews() {
-        restaurantList.add(RestaurantMenuModel("", "test-0", "10dk", "20TL"))
-        restaurantList.add(RestaurantMenuModel("", "test-1", "10dk", "20TL"))
-        restaurantList.add(RestaurantMenuModel("", "test-2", "10dk", "20TL"))
-        restaurantList.add(RestaurantMenuModel("", "test-3", "10dk", "20TL"))
-        restaurantList.add(RestaurantMenuModel("", "test-4", "10dk", "20TL"))
-        restaurantList.add(RestaurantMenuModel("", "test-5", "10dk", "20TL"))
-        restaurantList.add(RestaurantMenuModel("", "test-6", "10dk", "20TL"))
-        restaurantList.add(RestaurantMenuModel("", "test-7", "10dk", "20TL"))
-        restaurantList.add(RestaurantMenuModel("", "test-8", "10dk", "20TL"))
-        restaurantList.add(RestaurantMenuModel("", "test-9", "10dk", "20TL"))
+        viewModel.getRestaurants().observe(viewLifecycleOwner, {
+            when (it.status){
+                Resource.Status.LOADING -> {
 
+                }
+                Resource.Status.SUCCESS -> {
+                    restaurantMenuAdapter.setData(it.data?.restaurantData)
+                }
+                Resource.Status.ERROR -> {
+
+                }
+            }
+        })
         _binding.searchRecyclerView.adapter = restaurantMenuAdapter
-        restaurantMenuAdapter.setData(restaurantList)
     }
 
     private fun addListeners() {
@@ -62,32 +68,32 @@ class SearchFragment : Fragment() {
 
         _binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                val filterList = searchTextOnRestaurantList(query)
-                setRestaurants(filterList)
+                restaurantMenuAdapter.setData(searchTextOnRestaurantList(query))
+                _binding.searchRecyclerView.adapter = restaurantMenuAdapter
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                val filterList = searchTextOnRestaurantList(newText)
-                setRestaurants(filterList)
+                restaurantMenuAdapter.setData(searchTextOnRestaurantList(newText))
+                _binding.searchRecyclerView.adapter = restaurantMenuAdapter
                 return true
             }
 
         })
 
         restaurantMenuAdapter.addListener(object: IRestaurantOnClick{
-            override fun onClick(restaurant: RestaurantMenuModel) {
-                findNavController().navigate(R.id.action_searchFragment_to_restaurantDetailFragment)
+            override fun onClick(restaurant: RestaurantData) {
+                findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToRestaurantDetailFragment(restaurant.id))
             }
 
         })
     }
 
-    fun searchTextOnRestaurantList(text: String?): List<RestaurantMenuModel>? {
+    fun searchTextOnRestaurantList(text: String?): List<RestaurantData>? {
         if (text.isNullOrEmpty())
             return restaurantList
 
-        val filterList: MutableList<RestaurantMenuModel> = mutableListOf()
+        val filterList: MutableList<RestaurantData> = mutableListOf()
         restaurantList?.forEach { restaurant ->
             if (restaurant.name.contains(text, true))
                 filterList.add(restaurant)
@@ -95,10 +101,15 @@ class SearchFragment : Fragment() {
         return filterList
     }
 
-    private fun setRestaurants(restaurantList: List<RestaurantMenuModel>?) {
-//        isRestaurantListVisible(restaurantList.isNullOrEmpty().not())
-        restaurantMenuAdapter.setData(restaurantList)
-        _binding.searchRecyclerView.adapter = restaurantMenuAdapter
-    }
-
 }
+
+//        restaurantList.add(RestaurantMenuModel("", "test-0", "10dk", "20TL"))
+//        restaurantList.add(RestaurantMenuModel("", "test-1", "10dk", "20TL"))
+//        restaurantList.add(RestaurantMenuModel("", "test-2", "10dk", "20TL"))
+//        restaurantList.add(RestaurantMenuModel("", "test-3", "10dk", "20TL"))
+//        restaurantList.add(RestaurantMenuModel("", "test-4", "10dk", "20TL"))
+//        restaurantList.add(RestaurantMenuModel("", "test-5", "10dk", "20TL"))
+//        restaurantList.add(RestaurantMenuModel("", "test-6", "10dk", "20TL"))
+//        restaurantList.add(RestaurantMenuModel("", "test-7", "10dk", "20TL"))
+//        restaurantList.add(RestaurantMenuModel("", "test-8", "10dk", "20TL"))
+//        restaurantList.add(RestaurantMenuModel("", "test-9", "10dk", "20TL"))

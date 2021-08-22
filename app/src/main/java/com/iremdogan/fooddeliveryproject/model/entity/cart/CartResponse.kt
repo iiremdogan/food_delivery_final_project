@@ -1,10 +1,10 @@
-package com.iremdogan.fooddeliveryproject.model.entity.login
+package com.iremdogan.fooddeliveryproject.model.entity.cart
 
 import com.google.gson.annotations.SerializedName
 
-data class LoginResponse(
+data class CartResponse(
     @SerializedName("responseBody")
-    val loginData: LoginData,
+    val cartData: CartData,
     @SerializedName("reason")
     val reason: String,
     @SerializedName("message")

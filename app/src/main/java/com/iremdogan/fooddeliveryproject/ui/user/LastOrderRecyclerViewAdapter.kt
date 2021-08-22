@@ -1,4 +1,4 @@
-package com.iremdogan.fooddeliveryproject.ui.profile
+package com.iremdogan.fooddeliveryproject.ui.user
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +8,10 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.iremdogan.fooddeliveryproject.R
+import com.iremdogan.fooddeliveryproject.model.entity.order.OrderData
 
 class LastOrderRecyclerViewAdapter: RecyclerView.Adapter<LastOrderRecyclerViewAdapter.ViewHolder>() {
-    private lateinit var itemList: MutableList<OrderModel>
+    private lateinit var itemList: MutableList<OrderData>
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -27,7 +28,7 @@ class LastOrderRecyclerViewAdapter: RecyclerView.Adapter<LastOrderRecyclerViewAd
 
     override fun getItemCount(): Int = itemList.size
 
-    fun setData(itemList: MutableList<OrderModel>?) {
+    fun setData(itemList: MutableList<OrderData>?) {
         itemList?.let {
             this.itemList = itemList
             notifyDataSetChanged()
@@ -40,13 +41,16 @@ class LastOrderRecyclerViewAdapter: RecyclerView.Adapter<LastOrderRecyclerViewAd
         private val cartItemMealName: TextView = view.findViewById(R.id.meal_name_text_view)
         private val cartItemMealPrice: TextView = view.findViewById(R.id.meal_price_text_view)
 
-        fun bind(itemModel: OrderModel) {
-            cartItemRestaurantName.text = itemModel.restaurantName
-            cartItemMealName.text = itemModel.mealName
-            cartItemMealPrice.text = itemModel.price
+        fun bind(order: OrderData) {
+            cartItemRestaurantName.text = order.restaurantData.name
+            cartItemMealName.text = order.mealInfoList[0].name
+            cartItemMealPrice.text = order.mealInfoList[0].price.toString()
 
             Glide.with(cartItemImageView.context)
                 .load(R.drawable.ic_heart_filled).into(cartItemImageView)
+
+//            Glide.with(cartItemImageView.context)
+//                .load(order.mealInfoList[0].imageUrl).into(cartItemImageView)
         }
     }
 

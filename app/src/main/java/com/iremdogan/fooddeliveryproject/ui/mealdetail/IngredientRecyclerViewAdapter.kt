@@ -1,17 +1,15 @@
 package com.iremdogan.fooddeliveryproject.ui.mealdetail
 
-import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.iremdogan.fooddeliveryproject.R
 
 class IngredientRecyclerViewAdapter: RecyclerView.Adapter<IngredientRecyclerViewAdapter.ViewHolder>() {
-    private lateinit var ingredientList: List<IngredientModel>
+    private lateinit var ingredientList: List<String>
     private var listener: IIngredientOnClick? = null
 
     override fun onCreateViewHolder(
@@ -23,13 +21,13 @@ class IngredientRecyclerViewAdapter: RecyclerView.Adapter<IngredientRecyclerView
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val meal = ingredientList[position]
-        holder.bind(meal, listener)
+        val ingredient = ingredientList[position]
+        holder.bind(ingredient, position, listener)
     }
 
     override fun getItemCount(): Int = ingredientList.size
 
-    fun setData(ingredientList: List<IngredientModel>?) {
+    fun setData(ingredientList: List<String>?) {
         ingredientList?.let {
             this.ingredientList = ingredientList
             notifyDataSetChanged()
@@ -44,16 +42,17 @@ class IngredientRecyclerViewAdapter: RecyclerView.Adapter<IngredientRecyclerView
         private val ingredientLayout : CardView = view.findViewById(R.id.ingredient_layout)
         private val ingredientName: TextView = view.findViewById(R.id.ingredient_name_text_view)
 
-        fun bind(ingredientModel: IngredientModel, listener: IIngredientOnClick?) {
-            ingredientName.text = ingredientModel.name
+        fun bind(ingredient: String, position: Int, listener: IIngredientOnClick?) {
+            ingredientName.text = ingredient
+
+//            if(ingredientName.paintFlags == Paint.STRIKE_THRU_TEXT_FLAG){
+//                ingredientName.paintFlags = 0
+//            } else {
+//                ingredientName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+//            }
 
             ingredientLayout.setOnClickListener {
-                if(ingredientName.paintFlags == Paint.STRIKE_THRU_TEXT_FLAG){
-                    ingredientName.paintFlags = 0
-                } else {
-                    ingredientName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                }
-                listener?.onClick(ingredientModel)
+                listener?.onClick(ingredient, position)
             }
         }
     }

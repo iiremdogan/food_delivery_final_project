@@ -1,15 +1,12 @@
-package com.iremdogan.fooddeliveryproject.model.entity.order
+package com.iremdogan.fooddeliveryproject.model.entity.cart
 
-import android.service.autofill.UserData
 import com.google.gson.annotations.SerializedName
 import com.iremdogan.fooddeliveryproject.model.entity.meal.MealData
 import com.iremdogan.fooddeliveryproject.model.entity.restaurant.RestaurantData
 
-data class OrderData(
+data class CartData(
     @SerializedName("restaurantInfo")
     val restaurantData: RestaurantData,
     @SerializedName("mealInfoList")
-    val mealInfoList: List<MealData>,
-    @SerializedName("userInfo")
-    val userInfo: UserData
+    val mealInfoList: MutableList<MealData>
 )

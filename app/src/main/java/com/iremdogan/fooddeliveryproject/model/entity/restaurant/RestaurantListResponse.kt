@@ -1,10 +1,10 @@
-package com.iremdogan.fooddeliveryproject.model.entity.order
+package com.iremdogan.fooddeliveryproject.model.entity.restaurant
 
 import com.google.gson.annotations.SerializedName
 
-data class OrderResponse(
+data class RestaurantListResponse(
     @SerializedName("responseBody")
-    val orderData: List<OrderData>,
+    val restaurantData: List<RestaurantData>,
     @SerializedName("message")
     val message: String,
     @SerializedName("reason")

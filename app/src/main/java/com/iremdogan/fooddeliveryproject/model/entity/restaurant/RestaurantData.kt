@@ -5,11 +5,7 @@ import com.iremdogan.fooddeliveryproject.model.entity.meal.MealData
 
 data class RestaurantData(
     @SerializedName("id")
-    val id: String,
-    @SerializedName("imageUrl")
-    val imageUrl: String,
-    @SerializedName("meals")
-    val meals: List<MealData>,
+    val id: Long,
     @SerializedName("name")
     val name: String,
     @SerializedName("cuisine")
@@ -19,5 +15,9 @@ data class RestaurantData(
     @SerializedName("minDeliveryTime")
     val minDeliveryTime: String,
     @SerializedName("minDeliveryFee")
-    val minDeliveryFee: String
+    val minDeliveryFee: String,
+    @SerializedName("meals")
+    val meals: List<MealData>,
+    @SerializedName("imageUrl")
+    val imageUrl: String
 )

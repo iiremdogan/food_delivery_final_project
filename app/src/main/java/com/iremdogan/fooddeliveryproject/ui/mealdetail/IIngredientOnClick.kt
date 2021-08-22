@@ -1,5 +1,5 @@
 package com.iremdogan.fooddeliveryproject.ui.mealdetail
 
 interface IIngredientOnClick {
-    fun onClick(ingredient: IngredientModel)
+    fun onClick(ingredient: String, position: Int)
 }

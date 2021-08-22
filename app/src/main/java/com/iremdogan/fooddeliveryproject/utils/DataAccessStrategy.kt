@@ -2,7 +2,7 @@ package com.iremdogan.fooddeliveryproject.utils
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.example.fooddeliveryapp.model.entity.register.RegisterResponse
+import com.iremdogan.fooddeliveryproject.model.entity.register.RegisterResponse
 import com.iremdogan.fooddeliveryproject.model.entity.login.LoginResponse
 import kotlinx.coroutines.Dispatchers
 
@@ -34,10 +34,10 @@ fun <T> performAuthTokenNetworkOperation(
             val data = networkCall.data!!
 
             if (data is LoginResponse) {
-                saveToken(data.token)
+                saveToken(data.loginData.jwtToken)
             }
             if (data is RegisterResponse) {
-                saveToken(data.token)
+                saveToken(data.registerData.jwtToken)
             }
             emit(Resource.success(data))
         } else if (networkCall.status == Resource.Status.ERROR) {

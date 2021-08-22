@@ -1,7 +1,8 @@
 package com.iremdogan.fooddeliveryproject.model
 
-import com.example.fooddeliveryapp.model.entity.register.RegisterRequest
 import com.iremdogan.fooddeliveryproject.model.entity.login.LoginRequest
+import com.iremdogan.fooddeliveryproject.model.entity.register.RegisterRequest
+import com.iremdogan.fooddeliveryproject.model.entity.user.UserRequest
 import com.iremdogan.fooddeliveryproject.model.local.LocalDataSource
 import com.iremdogan.fooddeliveryproject.model.remote.RemoteDataSource
 import com.iremdogan.fooddeliveryproject.utils.performAuthTokenNetworkOperation
@@ -11,11 +12,11 @@ import javax.inject.Inject
 class ApiRepository @Inject constructor(
     private var remoteDataSource: RemoteDataSource,
     private var localDataSource: LocalDataSource
-){
-/*
+) {
+
     fun login(request: LoginRequest) = performAuthTokenNetworkOperation(
         call = {
-            remoteDataSource.postLogin(request)
+            remoteDataSource.login(request)
         },
         saveToken = {
             localDataSource.saveToken(it)
@@ -24,7 +25,7 @@ class ApiRepository @Inject constructor(
 
     fun register(request: RegisterRequest) = performAuthTokenNetworkOperation(
         call = {
-            remoteDataSource.postRegister(request)
+            remoteDataSource.register(request)
         },
         saveToken = {
             localDataSource.saveToken(it)
@@ -36,41 +37,51 @@ class ApiRepository @Inject constructor(
             remoteDataSource.getRestaurants()
         }
 
-    fun getRestaurantById(id: String) =
+    fun getRestaurantById(id: Long) =
         performNetworkOperation {
             remoteDataSource.getRestaurantById(id)
         }
 
-    fun getMealById(id: String) =
-        performNetworkOperation {
-            remoteDataSource.getMealById(id)
-        }
-
-    fun getRestaurantByCuisine(cuisine: String) =
+    fun getRestaurantsByCuisine(cuisine: String) =
         performNetworkOperation {
             remoteDataSource.getRestaurantsByCuisine(cuisine)
         }
 
-    fun getOrder() =
+    fun getMealDetail(id: Long) =
         performNetworkOperation {
-            remoteDataSource.getOrders()
+            remoteDataSource.getMealDetail(id)
         }
 
-    fun getUser() = performNetworkOperation {
-        remoteDataSource.getUser()
-    }
-
-    fun updateUser(user : UserRequest) = performNetworkOperation {
-        remoteDataSource.updateUser(request = user)
-    }
-
-    fun postOrder(orderAddRequest: OrderAddRequest) =
+    fun getCart() =
         performNetworkOperation {
-            remoteDataSource.postOrder(orderAddRequest)
+            remoteDataSource.getCart()
+        }
+
+    fun addToCart(id: Long) = performNetworkOperation {
+        remoteDataSource.addToCart(id)
+    }
+
+    fun createOrder() =
+        performNetworkOperation {
+            remoteDataSource.createOrder()
+        }
+
+    fun getUserLastOrders() = performNetworkOperation {
+        remoteDataSource.getUserLastOrders()
+    }
+
+    fun getUserDetails() =
+        performNetworkOperation {
+            remoteDataSource.getUserDetails()
+        }
+
+    fun updateUserDetails(userRequest: UserRequest) =
+        performNetworkOperation {
+            remoteDataSource.updateUserDetails(userRequest)
         }
 
     fun logOut() {
         localDataSource.saveToken("")
     }
- */
+
 }
