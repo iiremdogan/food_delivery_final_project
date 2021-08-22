@@ -1,7 +1,6 @@
 package com.iremdogan.fooddeliveryproject.model.entity.user
 
 import com.google.gson.annotations.SerializedName
-import com.iremdogan.fooddeliveryproject.model.entity.order.OrderData
 
 data class UserRequest(
     @SerializedName("name")

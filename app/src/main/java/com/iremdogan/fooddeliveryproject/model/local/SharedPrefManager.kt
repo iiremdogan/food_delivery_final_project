@@ -2,6 +2,7 @@ package com.iremdogan.fooddeliveryproject.model.local
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 
 class SharedPrefManager (context: Context) {
     companion object {

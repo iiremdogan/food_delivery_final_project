@@ -18,6 +18,6 @@ data class UserData(
     val address: String,
     @SerializedName("phone")
     val phone: String,
-    @SerializedName("lastorders")
+    @SerializedName("lastOrders")
     val lastOrders: MutableList<OrderData>
 )

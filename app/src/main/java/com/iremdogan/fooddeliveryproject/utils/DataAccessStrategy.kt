@@ -36,9 +36,6 @@ fun <T> performAuthTokenNetworkOperation(
             if (data is LoginResponse) {
                 saveToken(data.loginData.jwtToken)
             }
-            if (data is RegisterResponse) {
-                saveToken(data.registerData.jwtToken)
-            }
             emit(Resource.success(data))
         } else if (networkCall.status == Resource.Status.ERROR) {
             emit(

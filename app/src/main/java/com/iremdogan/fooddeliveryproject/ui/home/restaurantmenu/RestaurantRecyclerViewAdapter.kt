@@ -12,7 +12,7 @@ import com.iremdogan.fooddeliveryproject.R
 import com.iremdogan.fooddeliveryproject.model.entity.restaurant.RestaurantData
 
 class RestaurantRecyclerViewAdapter: RecyclerView.Adapter<RestaurantRecyclerViewAdapter.ViewHolder>() {
-    private lateinit var restaurantList: List<RestaurantData>
+    private var restaurantList: List<RestaurantData> = listOf()
     private var listener: IRestaurantOnClick? = null
 
     override fun onCreateViewHolder(
@@ -54,7 +54,7 @@ class RestaurantRecyclerViewAdapter: RecyclerView.Adapter<RestaurantRecyclerView
             restaurantDeliveryTime.text = restaurantModel.minDeliveryTime
 
             Glide.with(restaurantItemImageView.context)
-                .load(R.drawable.ic_heart_filled).into(restaurantItemImageView)
+                .load(restaurantModel.imageUrl).into(restaurantItemImageView)
 
             restaurantLayout.setOnClickListener {
                 listener?.onClick(restaurantModel)

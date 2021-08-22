@@ -8,5 +8,5 @@ data class CartData(
     @SerializedName("restaurantInfo")
     val restaurantData: RestaurantData,
     @SerializedName("mealInfoList")
-    val mealInfoList: MutableList<MealData>
+    val mealInfoList: MutableList<MealInfo>
 )

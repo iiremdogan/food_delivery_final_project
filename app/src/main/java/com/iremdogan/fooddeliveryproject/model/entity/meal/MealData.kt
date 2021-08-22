@@ -13,8 +13,6 @@ data class MealData(
     val description: String,
     @SerializedName("price")
     val price: Long,
-    @SerializedName("count")
-    val count: Long,
     @SerializedName("ingredients")
     val ingredients: List<String>
 )

@@ -1,6 +1,7 @@
 package com.iremdogan.fooddeliveryproject.ui.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,13 +49,15 @@ class SearchFragment : Fragment() {
         viewModel.getRestaurants().observe(viewLifecycleOwner, {
             when (it.status){
                 Resource.Status.LOADING -> {
-
+                    Log.e(SearchFragment::class.java.name, "LOADING")
                 }
                 Resource.Status.SUCCESS -> {
+                    Log.e(SearchFragment::class.java.name, "LOADING")
                     restaurantMenuAdapter.setData(it.data?.restaurantData)
+                    restaurantList.addAll(it.data?.restaurantData!!)
                 }
                 Resource.Status.ERROR -> {
-
+                    Log.e(SearchFragment::class.java.name, "LOADING")
                 }
             }
         })
@@ -89,12 +92,12 @@ class SearchFragment : Fragment() {
         })
     }
 
-    fun searchTextOnRestaurantList(text: String?): List<RestaurantData>? {
+    fun searchTextOnRestaurantList(text: String?): List<RestaurantData> {
         if (text.isNullOrEmpty())
             return restaurantList
 
         val filterList: MutableList<RestaurantData> = mutableListOf()
-        restaurantList?.forEach { restaurant ->
+        restaurantList.forEach { restaurant ->
             if (restaurant.name.contains(text, true))
                 filterList.add(restaurant)
         }
@@ -102,14 +105,3 @@ class SearchFragment : Fragment() {
     }
 
 }
-
-//        restaurantList.add(RestaurantMenuModel("", "test-0", "10dk", "20TL"))
-//        restaurantList.add(RestaurantMenuModel("", "test-1", "10dk", "20TL"))
-//        restaurantList.add(RestaurantMenuModel("", "test-2", "10dk", "20TL"))
-//        restaurantList.add(RestaurantMenuModel("", "test-3", "10dk", "20TL"))
-//        restaurantList.add(RestaurantMenuModel("", "test-4", "10dk", "20TL"))
-//        restaurantList.add(RestaurantMenuModel("", "test-5", "10dk", "20TL"))
-//        restaurantList.add(RestaurantMenuModel("", "test-6", "10dk", "20TL"))
-//        restaurantList.add(RestaurantMenuModel("", "test-7", "10dk", "20TL"))
-//        restaurantList.add(RestaurantMenuModel("", "test-8", "10dk", "20TL"))
-//        restaurantList.add(RestaurantMenuModel("", "test-9", "10dk", "20TL"))

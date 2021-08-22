@@ -10,8 +10,8 @@
         android:id="@+id/create_account_title_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="44dp"
         android:text="@string/create_an_account"
         android:textColor="@color/medium_black"
         android:textSize="24sp"
@@ -23,7 +23,7 @@
         android:id="@+id/welcome_text_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="44dp"
+        android:layout_marginHorizontal="24dp"
         android:layout_marginTop="16dp"
         android:text="@string/welcome_string"
         android:textColor="@color/medium_black"
@@ -33,35 +33,115 @@
         app:layout_constraintTop_toBottomOf="@id/create_account_title_text_view" />
 
     <TextView
-        android:id="@+id/email_edit_text_title"
+        android:id="@+id/name_edit_text_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="48dp"
-        android:text="@string/email_address"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/name"
         android:textColor="@color/medium_black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/welcome_text_view" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/email_edit_text"
+        android:id="@+id/name_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="24dp"
+        android:background="@drawable/text_shape"
+        android:hint="@string/enter_name"
+        android:paddingStart="20dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name_edit_text_title" />
+
+    <TextView
+        android:id="@+id/surname_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/surname"
+        android:textColor="@color/medium_black"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name_edit_text" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/surname_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="24dp"
+        android:background="@drawable/text_shape"
+        android:hint="@string/enter_surname"
+        android:paddingStart="20dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/surname_title" />
+
+    <TextView
+        android:id="@+id/username_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/user_name"
+        android:textColor="@color/medium_black"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/surname_edit_text" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/username_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="24dp"
         android:background="@drawable/text_shape"
         android:hint="@string/enter_email"
         android:paddingStart="20dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email_edit_text_title" />
+        app:layout_constraintTop_toBottomOf="@id/username_title" />
+
+    <TextView
+        android:id="@+id/email_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/email_address"
+        android:textColor="@color/medium_black"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/username_edit_text" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/email_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="24dp"
+        android:background="@drawable/text_shape"
+        android:hint="@string/enter_email"
+        android:paddingStart="20dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/email_title"
+        android:inputType="textEmailAddress"/>
 
     <TextView
         android:id="@+id/password_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
         android:text="@string/password"
         android:textColor="@color/medium_black"
@@ -74,60 +154,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="24dp"
         android:background="@drawable/text_shape"
         android:hint="@string/enter_password"
         android:paddingStart="20dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password_title" />
-
-    <TextView
-        android:id="@+id/confirm_password_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/confirm_password_title"
-        android:textColor="@color/medium_black"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password_edit_text" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/confirm_password_edit_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/text_shape"
-        android:hint="@string/confirm_password"
-        android:paddingStart="20dp"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/confirm_password_title" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/sign_in_with_google_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/rectangle"
-        android:drawableStart="@drawable/ic_google"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        android:text="@string/sign_in_with_google"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@id/create_account_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/password_title"
+        android:inputType="textPassword"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/create_account_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="12dp"
         android:background="@drawable/onboarding_button"
         android:text="@string/create_an_account"
         android:textAllCaps="false"
@@ -140,7 +182,7 @@
         android:id="@+id/login_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="24dp"
         android:lineSpacingExtra="5sp"
         android:text="@string/login_to_my_account"
         android:textColor="@color/light_red"

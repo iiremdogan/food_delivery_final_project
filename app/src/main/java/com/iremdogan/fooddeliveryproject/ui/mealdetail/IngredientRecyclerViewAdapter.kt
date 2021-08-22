@@ -1,5 +1,6 @@
 package com.iremdogan.fooddeliveryproject.ui.mealdetail
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iremdogan.fooddeliveryproject.R
 
 class IngredientRecyclerViewAdapter: RecyclerView.Adapter<IngredientRecyclerViewAdapter.ViewHolder>() {
-    private lateinit var ingredientList: List<String>
+    private var ingredientList: List<String> = listOf()
     private var listener: IIngredientOnClick? = null
 
     override fun onCreateViewHolder(
@@ -45,13 +46,12 @@ class IngredientRecyclerViewAdapter: RecyclerView.Adapter<IngredientRecyclerView
         fun bind(ingredient: String, position: Int, listener: IIngredientOnClick?) {
             ingredientName.text = ingredient
 
-//            if(ingredientName.paintFlags == Paint.STRIKE_THRU_TEXT_FLAG){
-//                ingredientName.paintFlags = 0
-//            } else {
-//                ingredientName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-//            }
-
             ingredientLayout.setOnClickListener {
+                if(ingredientName.paintFlags == Paint.STRIKE_THRU_TEXT_FLAG){
+                    ingredientName.paintFlags = 0
+                } else {
+                    ingredientName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                }
                 listener?.onClick(ingredient, position)
             }
         }

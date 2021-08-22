@@ -4,6 +4,8 @@ import com.google.gson.Gson
 import com.iremdogan.fooddeliveryproject.BuildConfig
 import com.iremdogan.fooddeliveryproject.model.local.LocalDataSource
 import com.iremdogan.fooddeliveryproject.model.remote.APIService
+import com.iremdogan.fooddeliveryproject.model.remote.AuthAPIService
+import com.iremdogan.fooddeliveryproject.model.remote.AuthRemoteDataSource
 import com.iremdogan.fooddeliveryproject.model.remote.RemoteDataSource
 import dagger.Module
 import dagger.Provides
@@ -13,43 +15,72 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Qualifier
 
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 
     @Provides
-    fun provideApiService(retrofit: Retrofit): APIService {
+    fun provideApiService(@NoAuthRetrofit retrofit: Retrofit): APIService {
         return retrofit.create(APIService::class.java)
     }
 
     @Provides
+    fun provideAuthApiService(@AuthRetrofit retrofit: Retrofit): AuthAPIService {
+        return retrofit.create(AuthAPIService::class.java)
+    }
+
+    @Provides
+    @NoAuthRetrofit
     fun provideRetrofit(
-        okHttpClient: OkHttpClient,
+        noAuthOkHttpClient: NoAuthOkHttpClient,
         gson: Gson,
         endPoint: EndPoint
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(endPoint.url)
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .client(okHttpClient)
+            .client(noAuthOkHttpClient.okHttpClient)
             .build()
     }
 
     @Provides
-    fun provideOkHttpClient(localDataSource: LocalDataSource): OkHttpClient {
+    fun provideOkHttpClient(): NoAuthOkHttpClient {
         val builder = OkHttpClient.Builder()
-        if(localDataSource.getToken().isNullOrEmpty()){
-            builder.interceptors().add(HttpLoggingInterceptor().apply {
-                level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
-            })
-        } else {
-            builder.addInterceptor {
-                val request = it.request().newBuilder().addHeader("Authorizaton", "Bearer " + localDataSource.getToken()!!).build()
+        builder.interceptors().add(HttpLoggingInterceptor().apply {
+            level =
+                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+        })
+        return provideNoAuthOkHttpClient(builder.build())
+    }
+
+    @Provides
+    @AuthRetrofit
+    fun provideAuthRetrofit(
+        authOkHttpClient: AuthOkHttpClient,
+        gson: Gson,
+        endPoint: EndPoint
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(endPoint.url)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(authOkHttpClient.okHttpClient)
+            .build()
+    }
+
+
+    @Provides
+    fun provideAuthInterceptorOkHttpClient(
+        localDataSource: LocalDataSource
+    ): AuthOkHttpClient {
+        return provideAuthOkHttpClient(OkHttpClient.Builder()
+            .addInterceptor {
+                val token = localDataSource.getToken()
+                val request = it.request().newBuilder().addHeader("Authorization", token!!).build()
                 it.proceed(request)
             }
-        }
-        return builder.build()
+            .build())
     }
 
     @Provides
@@ -59,17 +90,42 @@ class NetworkModule {
 
     @Provides
     fun provideRemoteDataSource(
-        apiService: APIService
+        apiService: APIService,
     ): RemoteDataSource {
         return RemoteDataSource(apiService)
     }
 
     @Provides
-    fun provideEndPoint(): EndPoint {
-        // TODO : endpoint will be changed
-        return EndPoint("https://dist-learn.herokuapp.com/api/")
+    fun provideAuthRemoteDataSource(
+        authAPIService: AuthAPIService,
+    ): AuthRemoteDataSource {
+        return AuthRemoteDataSource(authAPIService)
     }
 
+    @Provides
+    fun provideEndPoint(): EndPoint {
+        return EndPoint("https://food-delivery-testt.herokuapp.com/")
+    }
+
+    private fun provideAuthOkHttpClient(okHttpClient: OkHttpClient): AuthOkHttpClient {
+        return AuthOkHttpClient(okHttpClient)
+    }
+
+    private fun provideNoAuthOkHttpClient(okHttpClient: OkHttpClient): NoAuthOkHttpClient {
+        return NoAuthOkHttpClient(okHttpClient)
+    }
 }
 
 data class EndPoint(val url: String)
+
+data class AuthOkHttpClient(val okHttpClient: OkHttpClient)
+
+data class NoAuthOkHttpClient(val okHttpClient: OkHttpClient)
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class AuthRetrofit
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class NoAuthRetrofit

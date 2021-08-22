@@ -14,10 +14,16 @@ import javax.inject.Inject
 class RegisterViewModel @Inject constructor(
     val savedStateHandle: SavedStateHandle,
     private val apiRepository: ApiRepository
-): ViewModel(){
+) : ViewModel() {
 
-    fun register(email: String, password: String) : LiveData<Resource<RegisterResponse>> {
-        val request = RegisterRequest(email, password)
+    fun register(
+        name: String,
+        surname: String,
+        username: String,
+        email: String,
+        password: String
+    ): LiveData<Resource<RegisterResponse>> {
+        val request = RegisterRequest(name, surname, username, email, password)
         return apiRepository.register(request)
     }
 

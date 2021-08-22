@@ -1,6 +1,7 @@
 package com.iremdogan.fooddeliveryproject.ui.register
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,22 +34,25 @@ class RegisterFragment : Fragment() {
     }
 
     private fun initializeButtons() {
-        _binding.signInWithGoogleButton.setOnClickListener {
-            // TODO : sign in with google
-        }
         _binding.createAccountButton.setOnClickListener {
-            viewModel.register(_binding.emailEditText.text.toString(), _binding.passwordEditText.text.toString())
+            viewModel.register(
+                _binding.nameEditText.text.toString(),
+                _binding.surnameEditText.text.toString(),
+                _binding.usernameEditText.text.toString(),
+                _binding.emailEditText.text.toString(),
+                _binding.passwordEditText.text.toString())
                 .observe(viewLifecycleOwner, {
                     when (it.status) {
                         Resource.Status.LOADING -> {
-
+                            Log.e(RegisterFragment::class.java.name, "LOADING")
                         }
                         Resource.Status.SUCCESS -> {
+                            Log.e(RegisterFragment::class.java.name, "SUCCESS")
                             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-
                         }
                         Resource.Status.ERROR -> {
-
+                            Log.e(RegisterFragment::class.java.name, it.message.toString())
+                            Log.e(RegisterFragment::class.java.name, it.data?.reason.toString())
                         }
                     }
                 })

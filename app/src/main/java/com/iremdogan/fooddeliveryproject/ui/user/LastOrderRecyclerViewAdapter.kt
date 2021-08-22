@@ -10,8 +10,9 @@ import com.bumptech.glide.Glide
 import com.iremdogan.fooddeliveryproject.R
 import com.iremdogan.fooddeliveryproject.model.entity.order.OrderData
 
-class LastOrderRecyclerViewAdapter: RecyclerView.Adapter<LastOrderRecyclerViewAdapter.ViewHolder>() {
-    private lateinit var itemList: MutableList<OrderData>
+class LastOrderRecyclerViewAdapter :
+    RecyclerView.Adapter<LastOrderRecyclerViewAdapter.ViewHolder>() {
+    private var itemList: MutableList<OrderData> = mutableListOf()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -37,7 +38,8 @@ class LastOrderRecyclerViewAdapter: RecyclerView.Adapter<LastOrderRecyclerViewAd
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val cartItemImageView: AppCompatImageView = view.findViewById(R.id.meal_image_view)
-        private val cartItemRestaurantName: TextView = view.findViewById(R.id.restaurant_name_text_view)
+        private val cartItemRestaurantName: TextView =
+            view.findViewById(R.id.restaurant_name_text_view)
         private val cartItemMealName: TextView = view.findViewById(R.id.meal_name_text_view)
         private val cartItemMealPrice: TextView = view.findViewById(R.id.meal_price_text_view)
 
@@ -45,12 +47,8 @@ class LastOrderRecyclerViewAdapter: RecyclerView.Adapter<LastOrderRecyclerViewAd
             cartItemRestaurantName.text = order.restaurantData.name
             cartItemMealName.text = order.mealInfoList[0].name
             cartItemMealPrice.text = order.mealInfoList[0].price.toString()
-
             Glide.with(cartItemImageView.context)
-                .load(R.drawable.ic_heart_filled).into(cartItemImageView)
-
-//            Glide.with(cartItemImageView.context)
-//                .load(order.mealInfoList[0].imageUrl).into(cartItemImageView)
+                .load(order.mealInfoList[0].imageUrl).into(cartItemImageView)
         }
     }
 

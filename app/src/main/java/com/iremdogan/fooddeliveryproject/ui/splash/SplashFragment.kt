@@ -46,7 +46,8 @@ class SplashFragment : Fragment() {
                     if(token.isNullOrEmpty())
                         findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
                     else {
-                        val jwt = JWT(token)
+                        val tokenWithoutTag = token.split(" ")
+                        val jwt = JWT(tokenWithoutTag[1])
 
                         if (jwt.isExpired(0))
                             findNavController().navigate(R.id.action_splashFragment_to_loginFragment)

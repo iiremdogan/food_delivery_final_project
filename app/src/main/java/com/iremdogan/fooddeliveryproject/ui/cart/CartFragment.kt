@@ -1,6 +1,7 @@
 package com.iremdogan.fooddeliveryproject.ui.cart
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iremdogan.fooddeliveryproject.R
 import com.iremdogan.fooddeliveryproject.databinding.FragmentCartBinding
+import com.iremdogan.fooddeliveryproject.model.entity.cart.MealInfo
 import com.iremdogan.fooddeliveryproject.model.entity.meal.MealData
+import com.iremdogan.fooddeliveryproject.ui.MainActivity
 import com.iremdogan.fooddeliveryproject.utils.Resource
 import com.iremdogan.fooddeliveryproject.utils.SwipeToDeleteCallback
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +27,7 @@ class CartFragment : Fragment() {
     private val viewModel: CartViewModel by viewModels()
 
     private var cartAdapter = CartRecyclerViewAdapter()
-    private var cartList: MutableList<MealData> = mutableListOf()
+    private var cartList: MutableList<MealInfo> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,8 +55,9 @@ class CartFragment : Fragment() {
 
                 }
                 Resource.Status.SUCCESS ->{
-                    cartList.addAll(it.data!!.cartData.mealInfoList)
-                    cartAdapter.setData(it.data.cartData.mealInfoList)
+                    cartList.addAll(it.data!!.responseBody.mealInfoList)
+                    cartAdapter.setData(it.data.responseBody.mealInfoList)
+                    _binding.totalTextView.text = updateTotal()
                 }
                 Resource.Status.ERROR ->{
 
@@ -70,39 +74,77 @@ class CartFragment : Fragment() {
             viewModel.createOrder().observe(viewLifecycleOwner, {
                 when(it.status){
                     Resource.Status.LOADING -> {
-
+                        Log.e(CartFragment::class.java.name, "LOADING")
                     }
                     Resource.Status.SUCCESS -> {
+                        Log.e(CartFragment::class.java.name, "SUCCESS")
                         findNavController().navigate(R.id.action_cartFragment_to_homeFragment)
                     }
                     Resource.Status.ERROR -> {
-
+                        Log.e(CartFragment::class.java.name, it.message.toString())
                     }
                 }
             })
         }
 
         cartAdapter.addListener(object : ICartOnClick{
-            override fun onClickIncreaseButton(meal: MealData) {
-                viewModel.increaseCartItemCount()
-                viewModel.addToCart(meal.id, 1)
-                _binding.totalTextView.text = updateTotal()
+            override fun onClickIncreaseButton(meal: MealInfo) {
+                viewModel.addToCart(meal.mealInfo.id, 1).observe(viewLifecycleOwner, {
+                    when(it.status){
+                        Resource.Status.LOADING -> {
+                            Log.e(CartFragment::class.java.name, "LOADING")
+                        }
+                        Resource.Status.SUCCESS -> {
+                            Log.e(CartFragment::class.java.name, "SUCCESS")
+                            _binding.totalTextView.text = updateTotal()
+                            (activity as MainActivity).increaseCartCount(1)
+                        }
+                        Resource.Status.ERROR -> {
+                            Log.e(CartFragment::class.java.name, it.message.toString())
+                        }
+                    }
+                })
+
             }
 
-            override fun onClickDecreaseButton(meal: MealData) {
-                viewModel.decreaseCartItemCount()
-                viewModel.removeItemFromCart(meal.id, 1)
-                _binding.totalTextView.text = updateTotal()
+            override fun onClickDecreaseButton(meal: MealInfo) {
+                viewModel.removeItemFromCart(meal.mealInfo.id, 1).observe(viewLifecycleOwner, {
+                    when(it.status){
+                        Resource.Status.LOADING -> {
+                            Log.e(CartFragment::class.java.name, "LOADING")
+                        }
+                        Resource.Status.SUCCESS -> {
+                            Log.e(CartFragment::class.java.name, "SUCCESS")
+                            _binding.totalTextView.text = updateTotal()
+                            (activity as MainActivity).decreaseCartCount(1)
+                        }
+                        Resource.Status.ERROR -> {
+                            Log.e(CartFragment::class.java.name, it.message.toString())
+                        }
+                    }
+                })
             }
 
         })
 
         val swipeHandler = object : SwipeToDeleteCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                viewModel.decreaseCartItemCount()
-                viewModel.removeItemFromCart(cartList[viewHolder.adapterPosition].id, cartList[viewHolder.adapterPosition].count)
-                cartAdapter.removeAt(viewHolder.adapterPosition)
-                _binding.totalTextView.text = updateTotal()
+                viewModel.removeItemFromCart(cartList[viewHolder.adapterPosition].mealInfo.id, cartList[viewHolder.adapterPosition].count.toLong()).observe(viewLifecycleOwner, {
+                    when(it.status){
+                        Resource.Status.LOADING -> {
+                            Log.e(CartFragment::class.java.name, "LOADING")
+                        }
+                        Resource.Status.SUCCESS -> {
+                            Log.e(CartFragment::class.java.name, "SUCCESS")
+                            (activity as MainActivity).decreaseCartCount(cartList[viewHolder.adapterPosition].count)
+                            cartAdapter.removeAt(viewHolder.adapterPosition)
+                            _binding.totalTextView.text = updateTotal()
+                        }
+                        Resource.Status.ERROR -> {
+                            Log.e(CartFragment::class.java.name, it.message.toString())
+                        }
+                    }
+                })
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
@@ -112,7 +154,7 @@ class CartFragment : Fragment() {
     private fun updateTotal() : String{
         var total = 0L
         cartList.forEach {
-            total += it.count * it.price
+            total += it.count * it.mealInfo.price
         }
         return "$total TL"
     }

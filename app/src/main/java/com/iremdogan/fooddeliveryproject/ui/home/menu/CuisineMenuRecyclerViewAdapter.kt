@@ -4,15 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.iremdogan.fooddeliveryproject.R
 
 class CuisineMenuRecyclerViewAdapter : RecyclerView.Adapter<CuisineMenuRecyclerViewAdapter.ViewHolder>(){
 
-    private lateinit var itemList: List<CuisineMenuItemModel>
+    private lateinit var itemList: List<String>
     private var listener: ICuisineMenuItemOnClick? = null
 
     override fun onCreateViewHolder(
@@ -30,7 +28,7 @@ class CuisineMenuRecyclerViewAdapter : RecyclerView.Adapter<CuisineMenuRecyclerV
 
     override fun getItemCount(): Int = itemList.size
 
-    fun setData(itemList: List<CuisineMenuItemModel>?) {
+    fun setData(itemList: List<String>?) {
         itemList?.let {
             this.itemList = itemList
             notifyDataSetChanged()
@@ -43,14 +41,10 @@ class CuisineMenuRecyclerViewAdapter : RecyclerView.Adapter<CuisineMenuRecyclerV
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val cuisineMenuLayout : ConstraintLayout = view.findViewById(R.id.cuisine_menu_layout)
-        private val cuisineMenuItemImageView: AppCompatImageView = view.findViewById(R.id.cuisine_menu_item_image_view)
         private val cuisineMenuItemName: TextView = view.findViewById(R.id.cuisine_menu_item_text_view)
 
-        fun bind(itemModel: CuisineMenuItemModel, listener: ICuisineMenuItemOnClick?) {
-            cuisineMenuItemName.text = itemModel.text
-
-            Glide.with(cuisineMenuItemImageView.context)
-                .load(R.drawable.ic_user).into(cuisineMenuItemImageView)
+        fun bind(itemModel: String, listener: ICuisineMenuItemOnClick?) {
+            cuisineMenuItemName.text = itemModel
 
             cuisineMenuLayout.setOnClickListener {
                 listener?.onClick(itemModel)

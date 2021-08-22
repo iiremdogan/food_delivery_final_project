@@ -9,7 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayoutMediator
+import com.iremdogan.fooddeliveryproject.R
 import com.iremdogan.fooddeliveryproject.databinding.FragmentRestaurantDetailBinding
 import com.iremdogan.fooddeliveryproject.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +35,7 @@ class RestaurantDetailFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.visibility = View.GONE
         initViews()
         initListeners()
     }
@@ -41,6 +44,7 @@ class RestaurantDetailFragment: Fragment() {
         viewModel.getRestaurantDetail(args.restaurantId).observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.LOADING -> {
+
                 }
                 Resource.Status.SUCCESS -> {
                     val restaurant = it.data?.restaurantData
@@ -48,23 +52,23 @@ class RestaurantDetailFragment: Fragment() {
                         .load(restaurant!!.imageUrl).into(_binding.restaurantImageView)
                     _binding.restaurantNameTextView.text = restaurant.name
                     viewPagerAdapter = RestaurantDetailViewPagerAdapter(requireActivity(), restaurant)
+                    _binding.restaurantDetailViewPager.adapter = viewPagerAdapter
+                    TabLayoutMediator(_binding.restaurantDetailTabLayout, _binding.restaurantDetailViewPager){ tab, position ->
+                        if(position == 0)
+                            tab.text = "Info"
+                        if(position == 1)
+                            tab.text = "Menu"
+                    }.attach()
                 }
                 Resource.Status.ERROR -> {
                 }
             }
         })
-
-        _binding.restaurantDetailViewPager.adapter = viewPagerAdapter
-        TabLayoutMediator(_binding.restaurantDetailTabLayout, _binding.restaurantDetailViewPager){ tab, position ->
-            if(position == 0)
-                tab.text = "Info"
-            if(position == 1)
-                tab.text = "Menu"
-        }.attach()
     }
 
     private fun initListeners() {
-        _binding.restaurantDetailBackImageView.setOnClickListener { 
+        _binding.restaurantDetailBackImageView.setOnClickListener {
+            activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.visibility = View.VISIBLE
             findNavController().popBackStack()
         }
 

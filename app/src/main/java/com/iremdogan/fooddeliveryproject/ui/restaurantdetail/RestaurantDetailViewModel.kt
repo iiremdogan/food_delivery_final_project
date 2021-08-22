@@ -18,4 +18,6 @@ class RestaurantDetailViewModel @Inject constructor(
 
     fun getRestaurantDetail(id : Long) : LiveData<Resource<RestaurantResponse>> = apiRepository.getRestaurantById(id)
 
+    fun getRestaurantMeals(id: Long) : LiveData<Resource<MealListResponse>> = apiRepository.getRestaurantMeals(id)
+
 }

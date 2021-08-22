@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iremdogan.fooddeliveryproject.databinding.FragmentRestaurantMenuBinding
 import com.iremdogan.fooddeliveryproject.model.entity.meal.MealData
 import com.iremdogan.fooddeliveryproject.model.entity.restaurant.RestaurantData
 import com.iremdogan.fooddeliveryproject.ui.restaurantdetail.RestaurantDetailFragmentDirections
+import com.iremdogan.fooddeliveryproject.ui.restaurantdetail.RestaurantDetailViewModel
+import com.iremdogan.fooddeliveryproject.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,6 +21,7 @@ class RestaurantMenuFragment(val restaurant: RestaurantData): Fragment() {
 
     private lateinit var _binding : FragmentRestaurantMenuBinding
     private var mealMenuAdapter = RestaurantMenuRecyclerViewAdapter()
+    private val viewModel : RestaurantDetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,8 +43,16 @@ class RestaurantMenuFragment(val restaurant: RestaurantData): Fragment() {
     }
 
     private fun initializeViews() {
+        viewModel.getRestaurantMeals(restaurant.id).observe(viewLifecycleOwner, {
+            when(it.status){
+                Resource.Status.LOADING -> {}
+                Resource.Status.SUCCESS -> {
+                    mealMenuAdapter.setData(it.data?.mealData)
+                }
+                Resource.Status.ERROR -> {}
+            }
+        })
         _binding.restaurantMenuRecyclerView.adapter = mealMenuAdapter
-        mealMenuAdapter.setData(restaurant.meals)
     }
 
     private fun initializeListeners() {
@@ -53,14 +65,3 @@ class RestaurantMenuFragment(val restaurant: RestaurantData): Fragment() {
 
     }
 }
-
-//        mealList.add(MealModel("", "test-0", listOf("Tomato","Mushroom","Pepperoni", "Cheese"), "20TL"))
-//        mealList.add(MealModel("", "test-1", listOf("Tomato","Mushroom","Pepperoni", "Cheese"), "20TL"))
-//        mealList.add(MealModel("", "test-2", listOf("Tomato","Mushroom","Pepperoni", "Cheese"), "20TL"))
-//        mealList.add(MealModel("", "test-3", listOf("Tomato","Mushroom","Pepperoni", "Cheese"), "20TL"))
-//        mealList.add(MealModel("", "test-4", listOf("Tomato","Mushroom","Pepperoni", "Cheese"), "20TL"))
-//        mealList.add(MealModel("", "test-5", listOf("Tomato","Mushroom","Pepperoni", "Cheese"), "20TL"))
-//        mealList.add(MealModel("", "test-6", listOf("Tomato","Mushroom","Pepperoni", "Cheese"), "20TL"))
-//        mealList.add(MealModel("", "test-7", listOf("Tomato","Mushroom","Pepperoni", "Cheese"), "20TL"))
-//        mealList.add(MealModel("", "test-8", listOf("Tomato","Mushroom","Pepperoni", "Cheese"), "20TL"))
-//        mealList.add(MealModel("", "test-9", listOf("Tomato","Mushroom","Pepperoni", "Cheese"), "20TL"))

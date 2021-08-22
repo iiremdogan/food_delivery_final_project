@@ -12,7 +12,7 @@ import com.iremdogan.fooddeliveryproject.R
 import com.iremdogan.fooddeliveryproject.model.entity.meal.MealData
 
 class RestaurantMenuRecyclerViewAdapter: RecyclerView.Adapter<RestaurantMenuRecyclerViewAdapter.ViewHolder>() {
-    private lateinit var mealList: List<MealData>
+    private var mealList: List<MealData> = listOf()
     private var listener: IMealOnClick? = null
 
     override fun onCreateViewHolder(
@@ -60,10 +60,7 @@ class RestaurantMenuRecyclerViewAdapter: RecyclerView.Adapter<RestaurantMenuRecy
             mealIngredients.text = ingredientsText
 
             Glide.with(mealImageView.context)
-                .load(R.drawable.ic_heart_filled).into(mealImageView)
-
-//            Glide.with(mealImageView.context)
-//                .load(mealModel.imageUrl).into(mealImageView)
+                .load(mealModel.imageUrl).into(mealImageView)
 
             mealLayout.setOnClickListener {
                 listener?.onClick(mealModel)

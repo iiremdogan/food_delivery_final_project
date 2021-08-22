@@ -1,12 +1,14 @@
 package com.iremdogan.fooddeliveryproject.ui.settings
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.iremdogan.fooddeliveryproject.R
 import com.iremdogan.fooddeliveryproject.databinding.FragmentSettingsBinding
 import com.iremdogan.fooddeliveryproject.utils.Resource
@@ -29,6 +31,8 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.visibility = View.GONE
 
         initializeViews()
         initializeListeners()
@@ -58,6 +62,7 @@ class SettingsFragment : Fragment() {
 
     private fun initializeListeners() {
         _binding.settingsBackImageView.setOnClickListener {
+            activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.visibility = View.VISIBLE
             findNavController().popBackStack()
         }
         _binding.settingsUpdateButton.setOnClickListener {
@@ -72,13 +77,14 @@ class SettingsFragment : Fragment() {
             ) .observe(viewLifecycleOwner, {
                 when(it.status){
                     Resource.Status.LOADING -> {
-
+                        Log.e(SettingsFragment::class.java.name, "LOADING" )
                     }
                     Resource.Status.SUCCESS -> {
+                        Log.e(SettingsFragment::class.java.name, "SUCCESS" )
                         findNavController().navigate(R.id.action_settingsFragment_to_profileFragment)
                     }
                     Resource.Status.ERROR -> {
-
+                        Log.e(SettingsFragment::class.java.name, it.message.toString())
                     }
                 }
             })

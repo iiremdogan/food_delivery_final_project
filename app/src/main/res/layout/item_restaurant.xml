@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Restaurant name"
+            tools:text="Restaurant name"
             android:textColor="@color/medium_black"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@id/restaurant_item_image_view"
@@ -37,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="delivery time"
+            tools:text="delivery time"
             android:textColor="@color/light_gray"
             app:layout_constraintStart_toStartOf="@id/restaurant_name_text_view"
             app:layout_constraintTop_toBottomOf="@id/restaurant_name_text_view"
@@ -50,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
-            android:text="min fee"
+            tools:text="min fee"
             android:textColor="@color/light_gray"
             android:drawablePadding="4dp"
             app:layout_constraintStart_toEndOf="@id/restaurant_delivery_time_text_view"

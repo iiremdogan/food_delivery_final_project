@@ -9,10 +9,11 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.iremdogan.fooddeliveryproject.R
+import com.iremdogan.fooddeliveryproject.model.entity.cart.MealInfo
 import com.iremdogan.fooddeliveryproject.model.entity.meal.MealData
 
 class CartRecyclerViewAdapter : RecyclerView.Adapter<CartRecyclerViewAdapter.ViewHolder>() {
-    private lateinit var itemList: MutableList<MealData>
+    private var itemList: MutableList<MealInfo> = mutableListOf()
     private var listener: ICartOnClick ?= null
 
     override fun onCreateViewHolder(
@@ -30,7 +31,7 @@ class CartRecyclerViewAdapter : RecyclerView.Adapter<CartRecyclerViewAdapter.Vie
 
     override fun getItemCount(): Int = itemList.size
 
-    fun setData(itemList: MutableList<MealData>?) {
+    fun setData(itemList: MutableList<MealInfo>?) {
         itemList?.let {
             this.itemList = itemList
             notifyDataSetChanged()
@@ -49,29 +50,24 @@ class CartRecyclerViewAdapter : RecyclerView.Adapter<CartRecyclerViewAdapter.Vie
         private val increaseButton: AppCompatButton = view.findViewById(R.id.increase_count_button)
         private val decreaseButton: AppCompatButton = view.findViewById(R.id.decrease_count_button)
 
-        // TODO : count?
-        private var count = 1
-
-        fun bind(meal: MealData, listener: ICartOnClick?) {
-            cartItemMealName.text = meal.name
-            cartItemMealPrice.text = meal.price.toString()
+        fun bind(meal: MealInfo, listener: ICartOnClick?) {
+            cartItemMealName.text = meal.mealInfo.name
+            cartItemMealPrice.text = meal.mealInfo.price.toString()
+            cartItemMealCount.text = meal.count.toString()
 
             Glide.with(cartItemImageView.context)
-                .load(R.drawable.ic_heart_filled).into(cartItemImageView)
-
-//            Glide.with(cartItemImageView.context)
-//                .load(meal.imageUrl).into(cartItemImageView)
+                .load(meal.mealInfo.imageUrl).into(cartItemImageView)
 
             increaseButton.setOnClickListener {
-                count++
-                cartItemMealCount.text = count.toString()
+                meal.count++
+                cartItemMealCount.text = meal.count.toString()
                 listener?.onClickIncreaseButton(meal)
             }
 
             decreaseButton.setOnClickListener {
-                if((count - 1) != 0 ){
-                    count--
-                    cartItemMealCount.text = count.toString()
+                if((meal.count - 1) != 0 ){
+                    meal.count--
+                    cartItemMealCount.text = meal.count.toString()
                     listener?.onClickDecreaseButton(meal)
                 }
             }

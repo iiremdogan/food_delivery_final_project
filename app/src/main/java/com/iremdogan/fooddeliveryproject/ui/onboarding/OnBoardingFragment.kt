@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.iremdogan.fooddeliveryproject.R
 import com.iremdogan.fooddeliveryproject.databinding.FragmentOnboardingBinding
+import com.iremdogan.fooddeliveryproject.model.local.SharedPrefManager
 
 class OnBoardingFragment : Fragment() {
 
@@ -33,14 +34,17 @@ class OnBoardingFragment : Fragment() {
 
     private fun initializeButtons() {
         _binding.skipTextView.setOnClickListener {
+            SharedPrefManager(requireContext()).setOnboardingSeen()
             findNavController().navigate(R.id.action_onBoardingFragment_to_loginFragment)
         }
 
         _binding.createAccountButton.setOnClickListener {
+            SharedPrefManager(requireContext()).setOnboardingSeen()
             findNavController().navigate(R.id.action_onBoardingFragment_to_registerFragment)
         }
 
         _binding.loginTextView.setOnClickListener {
+            SharedPrefManager(requireContext()).setOnboardingSeen()
             findNavController().navigate(R.id.action_onBoardingFragment_to_loginFragment)
         }
     }

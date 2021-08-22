@@ -38,30 +38,23 @@
     <string name="add_to_cart">Add to cart</string>
     <string name="name">Name</string>
     <string name="surname">Surname</string>
-
-    <string-array name="RestaurantPaymentMethods">
-        <item>Online Credit/Bank Card</item>
-        <item>Credit Card</item>
-        <item>Cash</item>
-        <item>Ticket Restaurant</item>
-        <item>Sodexo Restaurant Pass</item>
-        <item>Multinet</item>
-        <item>SetCard</item>
-    </string-array>
+    <string name="enter_name">Enter name</string>
+    <string name="enter_surname">Enter surname</string>
+    <string name="enter_username">Enter username</string>
 
     <string-array name="Cuisines">
-        <item>Seafood</item>
+        <item>Pizza</item>
         <item>Burger</item>
-        <item>Doner</item>
+        <item>Bakery</item>
+        <item>Dessert</item>
         <item>Worldwide</item>
         <item>Homemade</item>
         <item>Breakfast</item>
         <item>Kebab</item>
-        <item>Meatball</item>
         <item>Pasta - Salad</item>
-        <item>Bakery</item>
-        <item>Pizza</item>
-        <item>Dessert</item>
+        <item>Doner</item>
+        <item>Seafood</item>
         <item>Eastern Kitchen</item>
     </string-array>
+
 </resources>
