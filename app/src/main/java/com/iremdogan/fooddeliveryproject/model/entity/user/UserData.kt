@@ -19,5 +19,5 @@ data class UserData(
     @SerializedName("phone")
     val phone: String,
     @SerializedName("lastorders")
-    val lastOrders: List<OrderData>
+    val lastOrders: MutableList<OrderData>
 )

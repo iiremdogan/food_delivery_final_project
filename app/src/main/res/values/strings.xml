@@ -36,6 +36,8 @@
     <string name="min_delivery_time">Min Delivery Time</string>
     <string name="min_delivery_fee">Min Delivery Fee</string>
     <string name="add_to_cart">Add to cart</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
 
     <string-array name="RestaurantPaymentMethods">
         <item>Online Credit/Bank Card</item>

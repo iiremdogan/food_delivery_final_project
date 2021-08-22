@@ -59,8 +59,8 @@ class CartRecyclerViewAdapter : RecyclerView.Adapter<CartRecyclerViewAdapter.Vie
             Glide.with(cartItemImageView.context)
                 .load(R.drawable.ic_heart_filled).into(cartItemImageView)
 
-            Glide.with(cartItemImageView.context)
-                .load(meal.imageUrl).into(cartItemImageView)
+//            Glide.with(cartItemImageView.context)
+//                .load(meal.imageUrl).into(cartItemImageView)
 
             increaseButton.setOnClickListener {
                 count++

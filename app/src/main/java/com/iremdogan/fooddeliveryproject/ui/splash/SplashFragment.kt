@@ -1,14 +1,18 @@
 package com.iremdogan.fooddeliveryproject.ui.splash
 
 import android.animation.Animator
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.auth0.android.jwt.JWT
 import com.iremdogan.fooddeliveryproject.R
 import com.iremdogan.fooddeliveryproject.databinding.FragmentSplashBinding
+import com.iremdogan.fooddeliveryproject.model.local.SharedPrefManager
+import com.iremdogan.fooddeliveryproject.ui.MainActivity
 
 class SplashFragment : Fragment() {
 
@@ -34,7 +38,26 @@ class SplashFragment : Fragment() {
             }
 
             override fun onAnimationEnd(p0: Animator?) {
-                findNavController().navigate(R.id.action_splashFragment_to_onBoardingFragment)
+                val token = getToken()
+
+                if(!isOnboardingSeen())
+                    findNavController().navigate(R.id.action_splashFragment_to_onBoardingFragment)
+                else {
+                    if(token.isNullOrEmpty())
+                        findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+                    else {
+                        val jwt = JWT(token)
+
+                        if (jwt.isExpired(0))
+                            findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+                        else{
+                            val intent = Intent(context, MainActivity::class.java)
+                            startActivity(intent)
+                            requireActivity().finish()
+                        }
+                    }
+                }
+
             }
 
             override fun onAnimationCancel(p0: Animator?) {
@@ -44,6 +67,14 @@ class SplashFragment : Fragment() {
             }
 
         })
+    }
+
+    private fun getToken(): String? {
+        return SharedPrefManager(requireContext()).getToken()
+    }
+
+    private fun isOnboardingSeen(): Boolean {
+        return SharedPrefManager(requireContext()).isOnboardingSeen()
     }
 
 }

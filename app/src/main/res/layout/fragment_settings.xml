@@ -39,17 +39,88 @@
         app:layout_constraintTop_toBottomOf="@id/settings_title_text_view"
         tools:ignore="ContentDescription" />
 
+    <LinearLayout
+        android:id="@+id/settings_name_surname_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:baselineAligned="false"
+        android:weightSum="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_image_view"
+        android:layout_marginHorizontal="24dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/settings_name_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/name"
+            app:boxBackgroundColor="@color/app_background_color"
+            app:startIconDrawable="@drawable/ic_user">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/restaurantOpenHourEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
+                android:textSize="16sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/settings_surname_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/surname"
+            app:boxBackgroundColor="@color/app_background_color">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/restaurantCloseHourEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
+                android:inputType="textWebEditText"
+                android:textSize="16sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/settings_user_email_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="@string/email_address"
+        app:expandedHintEnabled="true"
+        app:boxBackgroundColor="@color/app_background_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_name_surname_layout"
+        android:layout_marginHorizontal="24dp"
+        app:startIconDrawable="@drawable/ic_edit">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/settings_user_name_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="12dp"
         android:hint="@string/user_name"
         app:expandedHintEnabled="true"
         app:boxBackgroundColor="@color/app_background_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_image_view"
+        app:layout_constraintTop_toBottomOf="@id/settings_user_email_layout"
         android:layout_marginHorizontal="24dp"
         app:startIconDrawable="@drawable/ic_user_name">
 
@@ -64,7 +135,7 @@
         android:id="@+id/settings_user_phone_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:hint="@string/phone"
         app:expandedHintEnabled="true"
         app:boxBackgroundColor="@color/app_background_color"
@@ -82,17 +153,38 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/settings_user_password_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="@string/password"
+        app:expandedHintEnabled="true"
+        app:boxBackgroundColor="@color/app_background_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_user_phone_layout"
+        android:layout_marginHorizontal="24dp"
+        app:startIconDrawable="@drawable/ic_settings">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/settings_user_address_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:hint="@string/address"
         app:boxBackgroundColor="@color/app_background_color"
         app:counterEnabled="true"
         app:counterMaxLength="200"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_user_phone_layout"
+        app:layout_constraintTop_toBottomOf="@id/settings_user_password_layout"
         android:layout_marginHorizontal="24dp"
         app:startIconDrawable="@drawable/ic_user_address">
 

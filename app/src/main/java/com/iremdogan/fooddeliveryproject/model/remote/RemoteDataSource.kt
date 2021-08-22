@@ -25,7 +25,9 @@ class RemoteDataSource @Inject constructor(private val apiService: APIService) :
 
     suspend fun getCart() = getResult { apiService.getCart() }
 
-    suspend fun addToCart(mealId: Long) = getResult { apiService.addToCart(mealId) }
+    suspend fun addToCart(mealId: Long, count: Long) = getResult { apiService.addToCart(mealId, count) }
+
+    suspend fun removeItemFromCart(mealId: Long, count: Long) = getResult { apiService.removeItemFromCart(mealId, count) }
 
     suspend fun getUserLastOrders() = getResult { apiService.getUserLastOrders() }
 

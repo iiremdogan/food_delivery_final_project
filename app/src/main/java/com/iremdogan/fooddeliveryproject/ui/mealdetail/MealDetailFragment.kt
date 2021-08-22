@@ -26,7 +26,7 @@ class MealDetailFragment: Fragment() {
     private lateinit var layoutManager: FlexboxLayoutManager
     private var ingredientAdapter = IngredientRecyclerViewAdapter()
     private var ingredientList: MutableList<Pair<String, Boolean>> = mutableListOf()
-    private var count: Int = 1
+    private var count: Long = 1L
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -98,7 +98,7 @@ class MealDetailFragment: Fragment() {
         }
 
         _binding.decreaseCountButton.setOnClickListener {
-            if(count - 1 != 0){
+            if(count - 1L != 0L){
                 count--
                 _binding.itemCountTextView.text = count.toString()
             }
@@ -106,7 +106,7 @@ class MealDetailFragment: Fragment() {
 
         _binding.addCartButton.setOnClickListener {
 
-            cartViewModel.addToCart(args.mealId).observe(viewLifecycleOwner, {
+            cartViewModel.addToCart(args.mealId, count = count).observe(viewLifecycleOwner, {
                 when (it.status){
                     Resource.Status.LOADING -> {
 

@@ -3,6 +3,6 @@ package com.iremdogan.fooddeliveryproject.ui.cart
 import com.iremdogan.fooddeliveryproject.model.entity.meal.MealData
 
 interface ICartOnClick {
-    fun onClickIncreaseButton(cartItem: MealData)
-    fun onClickDecreaseButton(cartItem: MealData)
+    fun onClickIncreaseButton(meal: MealData)
+    fun onClickDecreaseButton(meal: MealData)
 }

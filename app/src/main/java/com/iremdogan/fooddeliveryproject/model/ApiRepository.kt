@@ -57,8 +57,12 @@ class ApiRepository @Inject constructor(
             remoteDataSource.getCart()
         }
 
-    fun addToCart(id: Long) = performNetworkOperation {
-        remoteDataSource.addToCart(id)
+    fun addToCart(id: Long, count: Long) = performNetworkOperation {
+        remoteDataSource.addToCart(id, count)
+    }
+
+    fun removeItemFromCart(id: Long, count: Long) = performNetworkOperation {
+        remoteDataSource.removeItemFromCart(id, count)
     }
 
     fun createOrder() =

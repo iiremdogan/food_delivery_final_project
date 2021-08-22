@@ -52,7 +52,8 @@ class CartFragment : Fragment() {
 
                 }
                 Resource.Status.SUCCESS ->{
-                    cartAdapter.setData(it.data!!.cartData.mealInfoList)
+                    cartList.addAll(it.data!!.cartData.mealInfoList)
+                    cartAdapter.setData(it.data.cartData.mealInfoList)
                 }
                 Resource.Status.ERROR ->{
 
@@ -61,7 +62,7 @@ class CartFragment : Fragment() {
         })
         _binding.cartRecyclerView.adapter = cartAdapter
 
-        _binding.totalTextView.text = updateTotal().toString() + " TL"
+        _binding.totalTextView.text = updateTotal()
     }
 
     private fun initializeListeners() {
@@ -84,12 +85,14 @@ class CartFragment : Fragment() {
         cartAdapter.addListener(object : ICartOnClick{
             override fun onClickIncreaseButton(meal: MealData) {
                 viewModel.increaseCartItemCount()
-                _binding.totalTextView.text = updateTotal().toString() + " TL"
+                viewModel.addToCart(meal.id, 1)
+                _binding.totalTextView.text = updateTotal()
             }
 
             override fun onClickDecreaseButton(meal: MealData) {
                 viewModel.decreaseCartItemCount()
-                _binding.totalTextView.text = updateTotal().toString() + " TL"
+                viewModel.removeItemFromCart(meal.id, 1)
+                _binding.totalTextView.text = updateTotal()
             }
 
         })
@@ -97,25 +100,21 @@ class CartFragment : Fragment() {
         val swipeHandler = object : SwipeToDeleteCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 viewModel.decreaseCartItemCount()
+                viewModel.removeItemFromCart(cartList[viewHolder.adapterPosition].id, cartList[viewHolder.adapterPosition].count)
                 cartAdapter.removeAt(viewHolder.adapterPosition)
-                _binding.totalTextView.text = updateTotal().toString() + " TL"
+                _binding.totalTextView.text = updateTotal()
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(_binding.cartRecyclerView)
     }
 
-    private fun updateTotal() : Int{
-        var total = 0
+    private fun updateTotal() : String{
+        var total = 0L
         cartList.forEach {
-            //total += it.count * it.price.toInt()
+            total += it.count * it.price
         }
-        return total
+        return "$total TL"
     }
 
 }
-
-//        cartList.add(CartItem("", "Restaurant Name","Meal Name", "48", 1))
-//        cartList.add(CartItem("", "Restaurant Name","Meal Name", "8", 2))
-//        cartList.add(CartItem("", "Restaurant Name","Meal Name", "1", 1))
-//        cartList.add(CartItem("", "Restaurant Name","Meal Name", "122", 1))

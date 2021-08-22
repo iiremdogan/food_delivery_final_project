@@ -5,16 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iremdogan.fooddeliveryproject.R
 import com.iremdogan.fooddeliveryproject.databinding.FragmentProfileBinding
+import com.iremdogan.fooddeliveryproject.utils.Resource
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
 
     private lateinit var _binding : FragmentProfileBinding
+    private val viewModel: UserViewModel by viewModels()
     private var orderAdapter = LastOrderRecyclerViewAdapter()
-    private var orderList: MutableList<OrderModel> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,13 +40,24 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initializeViews() {
-        orderList.add(OrderModel("", "Restaurant Name","Meal Name", "48"))
-        orderList.add(OrderModel("", "Restaurant Name","Meal Name", "8"))
-        orderList.add(OrderModel("", "Restaurant Name","Meal Name", "1"))
-        orderList.add(OrderModel("", "Restaurant Name","Meal Name", "122"))
+        viewModel.getUserInfo().observe(viewLifecycleOwner, {
+            when(it.status){
+                Resource.Status.LOADING -> {
+
+                }
+                Resource.Status.SUCCESS -> {
+                    _binding.profileNameTextView.text = it.data?.userData?.username
+                    _binding.profileAddressTextView.text = it.data?.userData?.address
+                    _binding.profilePhoneTextView.text = it.data?.userData?.phone
+                    orderAdapter.setData(it.data!!.userData.lastOrders)
+                }
+                Resource.Status.ERROR -> {
+
+                }
+            }
+        })
 
         _binding.profileOrdersRecyclerView.adapter = orderAdapter
-        orderAdapter.setData(orderList)
     }
 
     private fun initializeListeners() {

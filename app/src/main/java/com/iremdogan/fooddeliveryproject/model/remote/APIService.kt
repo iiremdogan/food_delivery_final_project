@@ -41,7 +41,10 @@ interface APIService {
     suspend fun getCart() : Response<CartResponse>
 
     @PUT("rest/cart/add")
-    suspend fun addToCart(@Path("meal_id") meal_id: Long) : Response<CartResponse>
+    suspend fun addToCart(@Path("meal_id") meal_id: Long, @Path("count") count: Long) : Response<CartResponse>
+
+    @DELETE("rest/cart/remove")
+    suspend fun removeItemFromCart(@Path("meal_id") meal_id: Long, @Path("count") count: Long) : Response<CartResponse>
 
     @PUT("rest/orders/create")
     suspend fun createOrder() : Response<OrderResponse>

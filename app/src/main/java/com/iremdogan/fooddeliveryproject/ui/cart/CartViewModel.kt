@@ -21,7 +21,9 @@ class CartViewModel @Inject constructor(
 
     fun getCart(): LiveData<Resource<CartResponse>> = apiRepository.getCart()
 
-    fun addToCart(id: Long): LiveData<Resource<CartResponse>> = apiRepository.addToCart(id)
+    fun addToCart(id: Long, count: Long): LiveData<Resource<CartResponse>> = apiRepository.addToCart(id, count)
+
+    fun removeItemFromCart(id: Long, count: Long): LiveData<Resource<CartResponse>> = apiRepository.removeItemFromCart(id, count)
 
     fun createOrder() : LiveData<Resource<OrderResponse>> = apiRepository.createOrder()
 
